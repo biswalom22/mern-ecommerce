@@ -5,7 +5,6 @@ import ProductDetails from "./pages/ProductDetail";
 import { AuthProvider } from "./context/AuthContext";
 import PaymentCancel from "./pages/PaymentCancell";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -20,7 +19,6 @@ const App: React.FC = () => {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
