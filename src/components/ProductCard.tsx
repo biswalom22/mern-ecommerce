@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import "../styles/ProductCard.css";
 
 interface ProductCardProps {
   _id: string;
@@ -17,12 +17,8 @@ const ProductCard = ({
   description,
   price,
   image,
-  stock,
   ratings,
 }: ProductCardProps) => {
-  const { addToCart } = useCart();
-
-  // Calculate average rating
   const averageRating =
     ratings.length > 0
       ? (
@@ -30,18 +26,11 @@ const ProductCard = ({
         ).toFixed(1)
       : "";
 
-  const handleAddToCart = () => {
-    addToCart({
-      productId: _id,
-      name,
-      price,
-      image,
-      quantity: 1,
-    });
-  };
-
   return (
-    <div className="card shadow-sm" style={{ width: "18rem" }}>
+    <div
+      className="card shadow-sm cursor-pointer product-card m-4"
+      style={{ width: "18rem" }}
+    >
       <Link
         to={`/products/${_id}`}
         style={{ textDecoration: "none", color: "inherit" }}
@@ -50,7 +39,11 @@ const ProductCard = ({
           src={image || "https://via.placeholder.com/150"}
           className="card-img-top"
           alt={name}
-          style={{ height: "200px", objectFit: "cover" }}
+          style={{
+            height: "200px",
+            objectFit: "cover",
+            border: "2px solid transparent",
+          }}
         />
       </Link>
       <div className="card-body text-center">

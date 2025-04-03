@@ -1,0 +1,17 @@
+.product-card {
+    width: 18rem;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgb(221, 178, 23);
+  }
+  
+  .product-card {
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border 0.1s ease-in-out;
+  }

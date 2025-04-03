@@ -4,6 +4,7 @@ import {
   removeFromCart as apiRemoveFromCart,
   clearCart as apiClearCart,
   fetchCartItems,
+  apiUpdateCartItem,
 } from "../api";
 import { useAuth } from "./AuthContext";
 export interface CartItem {
@@ -19,6 +20,7 @@ export interface CartItem {
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
+  updateCartItem: (productId: string, newQuantity: number) => void;
   removeFromCart: (productId: string) => void;
   clearCart: () => void;
 }
@@ -69,8 +71,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         image: item.image,
       };
 
-      const updateCart = await apiAddToCart(payload);
-      setCartItems(updateCart);
+      const updatedCart = await apiAddToCart(payload);
+      setCartItems(updatedCart);
     } catch (error) {
       console.error("Error adding item to cart:", error);
     }
@@ -84,8 +86,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       if (!cartItem) return;
 
       const updatedCart = await apiRemoveFromCart(cartItem._id!, userId);
-
-      setCartItems(updatedCart);
+      setCartItems(updatedCart.items);
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
@@ -94,20 +95,51 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const clearCart = async () => {
     try {
       const userId = getUserId();
-
-      // Call the API to clear the cart
       const updatedCart = await apiClearCart(userId);
-
-      // Update the local state with the API response
       setCartItems(updatedCart);
     } catch (error) {
       console.error("Error clearing cart:", error);
     }
   };
 
+  const updateCartItem = async (productId: string, newQuantity: number) => {
+    try {
+      const userId = getUserId();
+      const cartItem = cartItems.find((item) => item.productId === productId);
+
+      if (!cartItem) return;
+
+      if (newQuantity <= 0) {
+        await removeFromCart(productId);
+        return;
+      }
+
+      const payload = {
+        userId,
+        productId: cartItem.productId,
+        name: cartItem.name,
+        price: cartItem.price,
+        size: cartItem.size || null,
+        quantity: newQuantity,
+        image: cartItem.image,
+      };
+
+      const updatedCart = await apiUpdateCartItem(cartItem._id!, payload);
+      setCartItems(updatedCart.items);
+    } catch (error) {
+      console.error("Error updating cart item:", error);
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart }}
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        updateCartItem,
+      }}
     >
       {children}
     </CartContext.Provider>
