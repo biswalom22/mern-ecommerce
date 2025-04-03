@@ -1,54 +1,70 @@
-# React + TypeScript + Vite
+E-Commerce App - UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Overview
 
-Currently, two official plugins are available:
+This is the frontend of an e-commerce application built using React with Bootstrap for styling. It integrates with a backend API to manage products, authentication, cart operations, and payments.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features
 
-## Expanding the ESLint configuration
+User Authentication: Login, Register (JWT-based auth)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Product Listings: Display products with filtering and pagination
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Cart Management: Add, remove, update items in the cart
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Checkout Process: Integrated with Stripe for payments
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Order History: View past orders and status
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Responsive UI: Optimized for desktop and mobile
+
+Tech Stack
+
+Frontend: React, TypeScript, Bootstrap
+
+State Management: React Context API
+
+Form Handling: React Hook Form + Zod
+
+API Calls: Axios
+
+Payment Integration: Stripe
+
+Setup Instructions
+
+Prerequisites
+
+Node.js (>= 18)
+
+Folder Structure
+
+/src
+  ├── components/      # Reusable UI components
+  ├── pages/           # Route pages (Home, Product, Cart, etc.)
+  ├── context/         # Global state management (Auth, Cart)
+  ├── hooks/           # Custom React hooks
+  ├── api/             # API service functions
+  ├── styles/          # Global styles
+  ├── App.tsx          # Main app entry
+  ├── index.tsx        # React DOM rendering
+
+
+Installation
+
+Clone the repository:
+
+git clone https://github.com/{yourusername}/mern-ecommerce.git
+cd mern-ecommerce
+
+Install dependencies:
+
+npm install
+
+Create an .env file in the root directory and configure:
+
+REACT_APP_API_URL= http://{API_PATH}/api
+REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
+
+Start the development server:
+
+npm start
