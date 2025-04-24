@@ -2,10 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useNavigate } from "react-router-dom";
-import { loginUser } from "../api";
-import { useAuth } from "../context/AuthContext";
 import backgroundImg from "../assets/background-img.jpg";
+import { loginUser } from "@/api";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const loginSchema = z.object({
@@ -24,7 +24,7 @@ const Login = () => {
   });
 
   const [error, setError] = React.useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
   const { login } = useAuth();
 
   const onSubmit = async (data: LoginFormData) => {
@@ -35,7 +35,7 @@ const Login = () => {
       });
       localStorage.setItem("token", token);
       login(token, user);
-      navigate("/");
+      router.push("/products");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
     }
@@ -92,7 +92,7 @@ const Login = () => {
         <div className="text-center mt-3 cursor-pointer">
           <a
             className="text-decoration-none"
-            onClick={() => navigate("/signup")}
+            onClick={() => router.push("/signup")}
           >
             Don't have an account? Sign up
           </a>

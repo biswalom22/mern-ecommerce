@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const PaymentSuccess = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div className="container text-center mt-5">
       <h2>Payment Successful! 🎉</h2>
       <p>Thank you for your purchase. Your order has been placed.</p>
-      <button className="btn btn-primary" onClick={() => navigate("/")}>
+      <button className="btn btn-primary" onClick={() => router.push("/")}>
         Go to Home
       </button>
     </div>

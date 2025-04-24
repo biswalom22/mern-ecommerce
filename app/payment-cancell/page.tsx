@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const PaymentCancel = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div className="container text-center mt-5">
       <h2>Payment Canceled ❌</h2>
       <p>Your payment was not completed. You can try again.</p>
-      <button className="btn btn-danger" onClick={() => navigate("/cart")}>
+      <button className="btn btn-danger" onClick={() => router.push("/cart")}>
         Return to Cart
       </button>
     </div>

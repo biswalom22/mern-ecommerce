@@ -1,14 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductById } from "../api";
-import { useCart } from "../context/CartContext";
 import { useState } from "react";
-import { Product } from "../types/Product";
+import { useCart } from "@/context/CartContext";
+import { Product } from "@/types/Product";
+import { fetchProductById } from "@/api";
+import { useRouter } from "next/router";
 
 const ProductDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const { id } = router.query;
   const { cartItems, addToCart } = useCart();
-  const navigate = useNavigate();
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const {
@@ -32,7 +33,7 @@ const ProductDetails = () => {
 
   const handleCartAction = () => {
     if (isInCart) {
-      navigate("/cart"); // Redirect to cart
+      router.push("/cart");
     } else {
       addToCart({
         productId: product._id,

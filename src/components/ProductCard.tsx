@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "../styles/ProductCard.css";
+import Link from 'next/link';
+import '../styles/ProductCard.css';
 
 interface ProductCardProps {
   _id: string;
@@ -24,25 +24,22 @@ const ProductCard = ({
       ? (
           ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
         ).toFixed(1)
-      : "";
+      : '';
 
   return (
     <div
       className="card shadow-sm cursor-pointer product-card m-4"
-      style={{ width: "18rem" }}
+      style={{ width: '18rem' }}
     >
-      <Link
-        to={`/products/${_id}`}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
+      <Link href="/products/${_id}" className="text-decoration-none text-dark">
         <img
-          src={image || "https://via.placeholder.com/150"}
+          src={image || 'https://via.placeholder.com/150'}
           className="card-img-top"
           alt={name}
           style={{
-            height: "200px",
-            objectFit: "cover",
-            border: "2px solid transparent",
+            height: '200px',
+            objectFit: 'cover',
+            border: '2px solid transparent',
           }}
         />
       </Link>

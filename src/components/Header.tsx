@@ -1,14 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
-import { Navbar, Nav, Button, Container, Dropdown } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { fetchCategories, fetchColors, fetchBrands } from "../api";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { fetchCategories, fetchColors, fetchBrands } from '../api';
 
 const Header = () => {
   const { cartItems } = useCart();
   const { authState, logout } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [categories, setCategories] = useState<string[]>([]);
   const [colors, setColors] = useState<string[]>([]);
@@ -26,7 +27,7 @@ const Header = () => {
         const brandsData = await fetchBrands();
         setBrands(brandsData);
       } catch (error: any) {
-        console.error("Error fetching data:", error.message);
+        console.error('Error fetching data:', error.message);
       }
     };
 
@@ -42,20 +43,20 @@ const Header = () => {
       queryParams.delete(type);
     }
 
-    navigate(`/products?${queryParams.toString()}`);
+    router.push(`/products?${queryParams.toString()}`);
   };
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    router.push('/login');
   };
 
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold">
+        <Link href="/" className="navbar-brand fw-bold">
           Ecommerce Store
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {authState.token && (
@@ -68,7 +69,7 @@ const Header = () => {
                   {categories.map((category) => (
                     <Dropdown.Item
                       key={category}
-                      onClick={() => handleFilter("category", category)}
+                      onClick={() => handleFilter('category', category)}
                     >
                       {category}
                     </Dropdown.Item>
@@ -84,7 +85,7 @@ const Header = () => {
                   {colors.map((color) => (
                     <Dropdown.Item
                       key={color}
-                      onClick={() => handleFilter("color", color)}
+                      onClick={() => handleFilter('color', color)}
                     >
                       {color}
                     </Dropdown.Item>
@@ -100,7 +101,7 @@ const Header = () => {
                   {brands.map((brand) => (
                     <Dropdown.Item
                       key={brand}
-                      onClick={() => handleFilter("brand", brand)}
+                      onClick={() => handleFilter('brand', brand)}
                     >
                       {brand}
                     </Dropdown.Item>
@@ -112,18 +113,18 @@ const Header = () => {
 
           {authState.token && (
             <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/products">
+              <Link href="/products" className="nav-link">
                 Products
-              </Nav.Link>
-              <Nav.Link as={Link} to="/cart">
+              </Link>
+              <Link href="/cart" className='nav-link'>
                 Cart (
                 {cartItems.reduce(
                   (total: any, item: { quantity: any }) =>
                     total + item.quantity,
-                  0
+                  0,
                 )}
                 )
-              </Nav.Link>
+              </Link>
               {authState.token && (
                 <Button
                   variant="outline-danger"

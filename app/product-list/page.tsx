@@ -1,10 +1,11 @@
+import { fetchFilteredProducts } from '@/api';
+import ProductCard from '@/components/ProductCard';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { fetchFilteredProducts } from '../api';
-import ProductCard from '../components/ProductCard';
 
 const ProductList = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]); 
+  // define types
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);

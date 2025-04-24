@@ -2,9 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "../api";
 import backgroundImg from "../assets/background-img.jpg";
+import { registerUser } from "@/api";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const signupSchema = z.object({
@@ -24,13 +24,13 @@ const Signup = () => {
   });
 
   const [error, setError] = React.useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const onSubmit = async (data: SignupFormData) => {
     try {
       const { name, emailOrPhone, password } = data;
       await registerUser({ name, emailOrPhone, password });
-      navigate("/login");
+      router.push("/login");
     } catch (err: any) {
       setError(err.response?.data?.message || "Signup failed");
     }
@@ -92,7 +92,7 @@ const Signup = () => {
             <span
               className="text-primary"
               role="button"
-              onClick={() => navigate("/login")}
+              onClick={() => router.push("/login")}
             >
               Login
             </span>

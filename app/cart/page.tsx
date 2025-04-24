@@ -1,9 +1,9 @@
-import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
-import CartItem from "../components/CartItem";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
+import CartItem from "@/components/CartItem";
 
 const stripePromise = loadStripe(
   "pk_test_51R6eNF2SQ7Oew3XReSeJAlWsMlTAHWAbkOSyq9mzWj0Nqy1I1vh2xWbJhoi7fLlqrqB4jlBFRMOACPvn4qd4TPB200l3oCrTiZ"

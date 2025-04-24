@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const Checkout = () => {
-  const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get("session_id");
+  const router = useRouter();
+  const { sessionId } = router.query;
 
   const [paymentStatus, setPaymentStatus] = useState<"loading" | "success" | "failed">("loading");
 
